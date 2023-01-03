@@ -33,10 +33,12 @@ var btn2 = document.getElementById("btn2")
 const chatContainer = document.querySelector(".chatContainer")
 
 //username storage
-var username = "Please set your name first";
-var recname, recmsg, recid, prevname, prevmsg;
+var username = localStorage.getItem("rains_uname");
+var recname, recmsg, recid, name_color;
 
 var uniqueId = generateUniqueId();
+
+
 
 //insert data function
 function InsertData(e) {
@@ -75,15 +77,22 @@ function generateUniqueId() {
 }
 
 function formatMsg(uniqueId, username, msg) {
+  //custom
+  if (username == 'Shirley') {
+    name_color = '#C5FFDC';
+  } else {
+    name_color = 'pink';
+  }
   return (
     `
         <div class="chat">
-          <div class="${username} name">${username}
+          <div class="${username} name" style="color: ${name_color}">${username}
             </div>
             <div class="message" id=${uniqueId}>${msg}</div>
         </div>
     `
    )
+   
 }
 
 const outputMsg = async() => {
@@ -92,12 +101,16 @@ const outputMsg = async() => {
 
   chatContainer.scrollTop = chatContainer.scrollHeight;
   chatContainer.innerHTML += formatMsg(uniqueId, recname, recmsg)
+  
 
   ipt1.value = '';
 }
 
 function enterUsername() {
   username = ipt1.value;
+  ipt1.value = '';
+
+  localStorage.setItem("rains_uname", username);
 }
 
 btn2.addEventListener('click', enterUsername);
