@@ -5,6 +5,12 @@
     height: 100%;
 }
 
+@media screen and (max-width: 768px) {
+    * {
+        font-size: 12px;
+    }
+}
+
 .chatContainer {
     position: relative;
     top:2%;
@@ -44,19 +50,29 @@
 
 .chat .name {
     color: #dcdcdc;
-    font-size: 20;
+    font-size: 1rem;
     margin-left: 15px;
+    color:pink;
 }
 
 .chat .message{
     flex: 1;
   
     color: #dcdcdc;
-    font-size: 20px;
+    font-size: 1rem;
   
     max-width: 100%;
     overflow-x: none;
     font-size: 20;
+}
+
+.test {
+    position: absolute;
+    top: 1%;
+    left:3%;
+    color: white;
+    z-index: 3;
+    font-size: 1.2rem;
 }
 
 .pushmsg {
@@ -78,19 +94,22 @@ input {
     font-size: large;
 }
 
+button {
+    font-size: 1rem;
+}
+
 #btn1 {
     display: flex;
     position: relative;
     justify-content: center;
     height:40px;
-    width:10%;
+    width:15%;
     margin-left: 3px;
     border-width: 0.1;
     color:white;
     background-color: #23292E;
     cursor: pointer;
     line-height: 35px;
-    font-size:medium;
 }
 
 #btn2 {
@@ -98,12 +117,12 @@ input {
     position: relative;
     justify-content: center;
     height:40px;
-    width:10%;
+    width:15%;
     margin-left: 3px;
     border-width: 0.1;
     color:white;
     background-color: #23292E;
     cursor: pointer;
     line-height: 35px;
-    font-size:medium;
+    margin-right: 5px;
 }

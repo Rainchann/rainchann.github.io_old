@@ -33,7 +33,7 @@ var btn2 = document.getElementById("btn2")
 const chatContainer = document.querySelector(".chatContainer")
 
 //username storage
-var username;
+var username = "Please set your name first";
 var recname, recmsg, recid, prevname, prevmsg;
 
 var uniqueId = generateUniqueId();
@@ -92,13 +92,15 @@ const outputMsg = async() => {
 
   chatContainer.scrollTop = chatContainer.scrollHeight;
   chatContainer.innerHTML += formatMsg(uniqueId, recname, recmsg)
+
+  ipt1.value = '';
 }
 
 function enterUsername() {
   username = ipt1.value;
 }
 
-btn2.addEventListener('click', enterUsername());
+btn2.addEventListener('click', enterUsername);
 
 btn1.addEventListener('click', InsertData);
 btn1.addEventListener('keyup', (e) => {
