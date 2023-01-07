@@ -141,3 +141,13 @@ button {
     line-height: 35px;
     margin-right: 5px;
 }
+
+#notiBtn {
+    position: absolute;
+    top: 0;
+    justify-content: center;
+    width:2rem;
+    height:1rem;
+    background-color: white;
+    z-index: 30;
+}

@@ -30,6 +30,7 @@ const db = getDatabase(app);
 var ipt1 = document.getElementById("ipt1")
 var btn1 = document.getElementById("btn1")
 var btn2 = document.getElementById("btn2")
+var notificationBtn = document.getElementById("notiBtn")
 const chatContainer = document.querySelector(".chatContainer")
 const datetime = new Date()
 
@@ -123,6 +124,47 @@ function enterUsername() {
 
   localStorage.setItem("rains_uname", username);
 }
+
+//notification
+function checkNotificationPromise() {
+  try {
+    Notification.requestPermission().then();
+  } catch (e) {
+    return false;
+  }
+
+  return true;
+}
+
+function askNotificationPermission() {
+  // // function to actually ask the permissions
+  // function handlePermission(permission) {
+  //   // set the button to shown or hidden, depending on what the user answers
+  //   notificationBtn.style.display =
+  //     Notification.permission === 'granted' ? 'none' : 'block';
+  // }
+
+  // Let's check if the browser supports notifications
+  if (!('Notification' in window)) {
+    console.log("This browser does not support notifications.");
+  } else if (checkNotificationPromise()) {
+    Notification.requestPermission().then((permission) => {
+      console.log("success")
+      // handlePermission(permission);
+    });
+  } else {
+    Notification.requestPermission((permission) => {
+      // handlePermission(permission);
+      console.log("success")
+    });
+  }
+}
+
+askNotificationPermission();
+
+// const img = '/img/xuan1.jpg';
+// const text = `${recname}: ${message}`;
+// const notification = new Notification('To do list', { body: text, icon: img });
 
 btn2.addEventListener('click', enterUsername);
 
