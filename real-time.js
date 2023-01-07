@@ -44,8 +44,7 @@ var uniqueId = generateUniqueId();
 
 
 //insert data function
-function InsertData(e) {
-  e.preventDefault();
+function InsertData() {
 
   set(ref(db, "Chat"), {
     name: username,
@@ -189,8 +188,10 @@ askNotificationPermission();
 btn2.addEventListener('click', enterUsername);
 
 btn1.addEventListener('click', InsertData);
-btn1.addEventListener('keyup', (e) => {
-  if(e.keycode === 13) {
-    InsertData(e);
+ipt1.addEventListener('keyup', function(e) {
+  if(e.keyCode === 13) {
+    e.preventDefault();
+    btn1.click();
+
   }
 })
