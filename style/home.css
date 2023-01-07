@@ -11,23 +11,33 @@
     }
 }
 
+.wallpaper {
+    position: absolute;
+    height: 100%;
+    z-index: 2;
+    width:100%;
+    opacity: 0.1;
+    
+}
+
 .chatContainer {
     position: relative;
     top:2%;
     flex: 1;
     width: 100%;
-    height: 100%;
-    overflow-y: scroll;
+    height: 90%;
+    overflow-y: scroll; 
   
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     gap: 10px;
   
-    -ms-overflow-style: none;
+    -ms-overflow-style:none;
     scrollbar-width: none;
   
     padding-bottom: 20px;
     scroll-behavior: smooth;
+    z-index: 1;
 
 }
 
@@ -51,7 +61,7 @@
 .chat .name {
     color: #dcdcdc;
     font-size: 1rem;
-    margin-left: 15px;
+    margin-left: 0.2rem;
     color:pink;
 }
 
@@ -75,6 +85,10 @@
     font-size: 1.2rem;
 }
 
+.chatContainer .time {
+    margin-left: 1rem;
+}
+
 .pushmsg {
     position: absolute;
     display: inline-flex;
@@ -82,6 +96,7 @@
     width: 100%;
     height:70px;
     background-color: #677076;
+    z-index: 3;
 }
 
 input {

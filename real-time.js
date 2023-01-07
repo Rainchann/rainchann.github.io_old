@@ -31,12 +31,15 @@ var ipt1 = document.getElementById("ipt1")
 var btn1 = document.getElementById("btn1")
 var btn2 = document.getElementById("btn2")
 const chatContainer = document.querySelector(".chatContainer")
+const datetime = new Date()
 
 //username storage
-var username = "Please set your name first";
-var recname, recmsg, recid, prevname, prevmsg;
+var username = localStorage.getItem("rains_uname");
+var recname, recmsg, recid, name_color, currentTime;
 
 var uniqueId = generateUniqueId();
+
+
 
 //insert data function
 function InsertData(e) {
@@ -45,7 +48,8 @@ function InsertData(e) {
   set(ref(db, "Chat"), {
     name: username,
     msg: ipt1.value,
-    id: uniqueId
+    id: uniqueId,
+    time: getDate()
   })
   .then(() => {
   })
@@ -63,6 +67,7 @@ onValue(dbref, (snapshot) => {
     recname = snapshot.val().name;
     recmsg = snapshot.val().msg;
     recid = snapshot.val().id;
+    currentTime = snapshot.val().time;
     outputMsg();
   }})
 
@@ -74,16 +79,24 @@ function generateUniqueId() {
   return `id-${timestamp}-${hexadecimalString}`;
 }
 
-function formatMsg(uniqueId, username, msg) {
+function formatMsg(uniqueId, username, msg, time) {
+  //custom
+  if (username == 'Shirley') {
+    name_color = '#C5FFDC';
+  } else {
+    name_color = 'pink';
+  }
   return (
     `
         <div class="chat">
-          <div class="${username} name">${username}
+          <div class="time" style="color:#DDE2D8">${time}</div>
+          <div class="${username} name" style="color: ${name_color}">${username}:
             </div>
             <div class="message" id=${uniqueId}>${msg}</div>
         </div>
     `
    )
+   
 }
 
 const outputMsg = async() => {
@@ -91,13 +104,24 @@ const outputMsg = async() => {
   uniqueId = generateUniqueId()
 
   chatContainer.scrollTop = chatContainer.scrollHeight;
-  chatContainer.innerHTML += formatMsg(uniqueId, recname, recmsg)
+  chatContainer.innerHTML += formatMsg(uniqueId, recname, recmsg, currentTime)
+  
 
   ipt1.value = '';
 }
 
+function getDate() {
+  let month = datetime.getMonth();
+  let hour = String(datetime.getHours()).padStart(2, '0');
+  let min = String(datetime.getMinutes()).padStart(2, '0');
+  return hour+":"+min;
+}
+
 function enterUsername() {
   username = ipt1.value;
+  ipt1.value = '';
+
+  localStorage.setItem("rains_uname", username);
 }
 
 btn2.addEventListener('click', enterUsername);
