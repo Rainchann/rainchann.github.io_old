@@ -110,8 +110,8 @@ const outputMsg = async() => {
   chatContainer.scrollTop = chatContainer.scrollHeight;
   chatContainer.innerHTML += formatMsg(uniqueId, recname, recmsg, currentTime)
   
-  main ? '' : sendNoti(); 
   ipt1.value = '';
+  main ? '' : sendNoti(); 
 }
 
 function getDate() {
