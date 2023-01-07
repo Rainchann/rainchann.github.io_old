@@ -37,6 +37,7 @@ const datetime = new Date()
 //username storage
 var username = localStorage.getItem("rains_uname");
 var recname, recmsg, recid, name_color, currentTime;
+var main = false; //bool, to determine if the message send by the own user
 
 var uniqueId = generateUniqueId();
 
@@ -57,6 +58,8 @@ function InsertData(e) {
   .catch((err) => {
     alert("Error occured: " + err)
   });
+
+  main = true;
 
 }
 
@@ -107,7 +110,7 @@ const outputMsg = async() => {
   chatContainer.scrollTop = chatContainer.scrollHeight;
   chatContainer.innerHTML += formatMsg(uniqueId, recname, recmsg, currentTime)
   
-
+  main ? '' : sendNoti(); 
   ipt1.value = '';
 }
 
@@ -160,11 +163,28 @@ function askNotificationPermission() {
   }
 }
 
-askNotificationPermission();
 
-// const img = '/img/xuan1.jpg';
-// const text = `${recname}: ${message}`;
-// const notification = new Notification('To do list', { body: text, icon: img });
+function sendNoti() {
+  const img = '/img/xuan1.jpg';
+  const text = `${recname}: ${recmsg}`;
+  if (Notification?.permission === "granted") {
+      // If the user agreed to get notified
+      // Let's try to send ten notifications
+      const notification = new Notification('', {body: text, icon: img });
+    } else if (Notification && Notification.permission !== "denied") {
+      // If the user hasn't told if they want to be notified or not
+      // Note: because of Chrome, we are not sure the permission property
+      // is set, therefore it's unsafe to check for the "default" value.
+      Notification.requestPermission((status) => {
+        // If the user said okay
+        if (status === "granted") {
+          const notification = new Notification('', { body: text, icon: img });
+        }})
+      }
+
+    }
+
+askNotificationPermission();
 
 btn2.addEventListener('click', enterUsername);
 
