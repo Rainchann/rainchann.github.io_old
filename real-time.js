@@ -166,10 +166,16 @@ function askNotificationPermission() {
 function sendNoti() {
   const img = '/img/xuan1.jpg';
   const text = `${recname}: ${recmsg}`;
+
+  navigator.serviceWorker.register('sw.js');
+
   if (Notification?.permission === "granted") {
       // If the user agreed to get notified
       // Let's try to send ten notifications
-      const notification = new Notification('', {body: text, icon: img });
+      // const notification = new Notification('', {body: text, icon: img });
+      navigator.serviceWorker.ready.then(function(registration) {
+        registration.showNotification('', {body: text, icon: img });
+      });
     } else if (Notification && Notification.permission !== "denied") {
       // If the user hasn't told if they want to be notified or not
       // Note: because of Chrome, we are not sure the permission property
@@ -177,7 +183,10 @@ function sendNoti() {
       Notification.requestPermission((status) => {
         // If the user said okay
         if (status === "granted") {
-          const notification = new Notification('', { body: text, icon: img });
+          // const notification = new Notification('', { body: text, icon: img });
+          navigator.serviceWorker.ready.then(function(registration) {
+            registration.showNotification('', {body: text, icon: img });
+          });
         }})
       }
 
