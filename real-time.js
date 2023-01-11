@@ -114,10 +114,11 @@ const outputMsg = async() => {
 }
 
 function getDate() {
-  let month = datetime.getMonth();
+  let month = datetime.getMonth()+1;
+  let day = datetime.getDate();
   let hour = String(datetime.getHours()).padStart(2, '0');
   let min = String(datetime.getMinutes()).padStart(2, '0');
-  return hour+":"+min;
+  return day + "/" + month + "\t\t\t\t" + hour+":"+min;
 }
 
 function enterUsername() {
